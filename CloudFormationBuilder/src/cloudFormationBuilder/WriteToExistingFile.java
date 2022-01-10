@@ -33,16 +33,16 @@ public class WriteToExistingFile {
 				+ "InternetGatewayId: !Ref InternetGateway\n  RouteTableWeb: \n    Type: 'AWS::EC2::RouteTable'\n    Properties:\n      "
 				+ "VpcId: !Ref VPC\n      Tags:\n        - Key: Name\n          Value: " + nameVPC + "-rt" + "\n");
 		CFTemplateArrayList.add("  RouteTableWebDefaultIPv4: \n    Type: 'AWS::EC2::Route'\n    DependsOn: InternetGatewayAttachment\n    Properties:\n      "
-					+ "RouteTableId:\n        Ref: RouteTableWeb\n      DestinationCidrBlock: '0.0.0.0/0'\n      GatewayId:\n        Ref: InternetGateway\n  "
-					+ "RouteTableWebDefaultIPv6: \n    Type: 'AWS::EC2::Route'\n    DependsOn: InternetGatewayAttachment\n    Properties:\n      "
-					+ "RouteTableId:\n        Ref: RouteTableWeb\n      DestinationIpv6CidrBlock: '::/0'\n      GatewayId: \n        Ref: InternetGateway\n  "
-					+ "RouteTableAssociation:\n    Type: 'AWS::EC2::SubnetRouteTableAssociation'\n    Properties:\n      SubnetId: !Ref Subnet\n      "
-					+ "RouteTableId:\n        Ref: RouteTableWeb\n  Subnet:\n    Type: AWS::EC2::Subnet\n    DependsOn: IPv6CidrBlock\n    Properties:\n      "
-					+ "VpcId: !Ref VPC\n      AvailabilityZone: !Select [ "  + availabilityZoneSelection +
-					", !GetAZs '' ]\n      CidrBlock: 10.16.48.0/20\n      MapPublicIpOnLaunch: true\n      Ipv6CidrBlock: \n        Fn::Sub:\n          "
-					+ "- \"${VpcPart}${SubnetPart}\"\n          - SubnetPart: '03::/64'\n            VpcPart: !Select [ 0, !Split [ '00::/56', "
-					+ "!Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]\n      Tags:\n        - Key: Name \n          Value: "
-					+ nameVPC + "-sn" + "\n");
+				+ "RouteTableId:\n        Ref: RouteTableWeb\n      DestinationCidrBlock: '0.0.0.0/0'\n      GatewayId:\n        Ref: InternetGateway\n  "
+				+ "RouteTableWebDefaultIPv6: \n    Type: 'AWS::EC2::Route'\n    DependsOn: InternetGatewayAttachment\n    Properties:\n      "
+				+ "RouteTableId:\n        Ref: RouteTableWeb\n      DestinationIpv6CidrBlock: '::/0'\n      GatewayId: \n        Ref: InternetGateway\n  "
+				+ "RouteTableAssociation:\n    Type: 'AWS::EC2::SubnetRouteTableAssociation'\n    Properties:\n      SubnetId: !Ref Subnet\n      "
+				+ "RouteTableId:\n        Ref: RouteTableWeb\n  Subnet:\n    Type: AWS::EC2::Subnet\n    DependsOn: IPv6CidrBlock\n    Properties:\n      "
+				+ "VpcId: !Ref VPC\n      AvailabilityZone: !Select [ "  + availabilityZoneSelection +
+				", !GetAZs '' ]\n      CidrBlock: 10.16.48.0/20\n      MapPublicIpOnLaunch: true\n      Ipv6CidrBlock: \n        Fn::Sub:\n          "
+				+ "- \"${VpcPart}${SubnetPart}\"\n          - SubnetPart: '03::/64'\n            VpcPart: !Select [ 0, !Split [ '00::/56', "
+				+ "!Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]\n      Tags:\n        - Key: Name \n          Value: "
+				+ nameVPC + "-sn" + "\n");
 		CFTemplateArrayList.add("  IPv6WorkaroundSubnet:\n    Type: Custom::SubnetModify\n    Properties:\n      "
 				+ "ServiceToken: !GetAtt IPv6WorkaroundLambda.Arn\n      SubnetId: !Ref Subnet\n  IPv6WorkaroundRole:\n    "
 				+ "Type: AWS::IAM::Role\n    Properties:\n      AssumeRolePolicyDocument:\n        Version: '2012-10-17'\n        "
@@ -70,7 +70,7 @@ public class WriteToExistingFile {
 				+ "          ToPort: '80'\n          CidrIp: '0.0.0.0/0'\n        - Description: 'Allow SSH IPv6 IN'\n          IpProtocol: tcp\n"
 				+ "          FromPort: '22'\n          ToPort: '22'\n          CidrIpv6: ::/0\n  PublicEC2:\n    Type: AWS::EC2::Instance\n    "
 				+ "Properties:\n      InstanceType: "
-		+ instanceTypeEC2 + "\n");
+				+ instanceTypeEC2 + "\n");
 		CFTemplateArrayList.add("      ImageId: !Ref LatestAmiId\n      SubnetId: !Ref Subnet\n      SecurityGroupIds: \n        - !Ref InstanceSecurityGroup\n"
 				+ "      Tags:\n        - Key: Name\n          Value: "
 				+ nameEC2 + "\n");
