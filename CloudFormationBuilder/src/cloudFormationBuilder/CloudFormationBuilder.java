@@ -19,7 +19,8 @@ public class CloudFormationBuilder {
 		
 		//Creates a unique file name
 		String fileName = textscan.nextLine();
-		while (CreateFile.check(fileName, userHomeFolder) == false) {
+		CreateFile file = new CreateFile(fileName, userHomeFolder);
+		while (!file.newFileCheck()) {
 		fileName = textscan.nextLine();
 		}
 	
@@ -56,35 +57,37 @@ public class CloudFormationBuilder {
 				System.out.println("Default us-east-1a AZ");
 				availabilityZoneSelection = "us-east-1a";
 				}
-				if ((availabilityZoneSelection.equals("us-east-1a")) || (availabilityZoneSelection.equals("us-east-1b")) || (availabilityZoneSelection.equals("us-east-1c")) || (availabilityZoneSelection.equals("us-east-1d")) ||
-					(availabilityZoneSelection.equals("us-east-1e")) || (availabilityZoneSelection.equals("us-east-1f"))) {
-				availabilityZoneCheck = true;
-					switch (availabilityZoneSelection) {
-					case "us-east-1a":
-						availabilityZoneSelection = "0";
-						break;
-					case "us-east-1b":
-						availabilityZoneSelection = "1";
-						break;
-					case "us-east-1c":
-						availabilityZoneSelection = "2";
-						break;
-					case "us-east-1d":
-						availabilityZoneSelection = "3";
-						break;
-					case "us-east-1e":
-						availabilityZoneSelection = "4";
-						break;
-					case "us-east-1f":
-						availabilityZoneSelection = "5";
-						break;
+				switch (availabilityZoneSelection) {
+				case "us-east-1a":
+					availabilityZoneSelection = "0";
+					availabilityZoneCheck = true;
+					break;
+				case "us-east-1b":
+					availabilityZoneSelection = "1";
+					availabilityZoneCheck = true;
+					break;
+				case "us-east-1c":
+					availabilityZoneSelection = "2";
+					availabilityZoneCheck = true;
+					break;
+				case "us-east-1d":
+					availabilityZoneSelection = "3";
+					availabilityZoneCheck = true;
+					break;
+				case "us-east-1e":
+					availabilityZoneSelection = "4";
+					availabilityZoneCheck = true;
+					break;
+				case "us-east-1f":
+					availabilityZoneSelection = "5";
+					availabilityZoneCheck = true;
+					break;
+				default:
+					System.out.println("Not a valid AZ. Please re-enter.");
 					}
 				}
-				else {
-				System.out.println("Not a valid AZ. Please re-enter.");
-				}
-			}
 			break;
+	
 		case "us-east-2":
 			while (availabilityZoneCheck == false) {
 				System.out.println("What is your availability zone? Please type us-east-2a, us-east-2b, or us-east-2c? (Leave blank for default us-east-2a)");
@@ -93,47 +96,43 @@ public class CloudFormationBuilder {
 					System.out.println("Default us-east-2a AZ");
 					availabilityZoneSelection = "us-east-2a";
 				}
-				if ((availabilityZoneSelection.equals("us-east-2a")) || (availabilityZoneSelection.equals("us-east-2b")) || (availabilityZoneSelection.equals("us-east-2c"))) {
+				switch (availabilityZoneSelection) {
+				case "us-east-2a":
+					availabilityZoneSelection = "0";
 					availabilityZoneCheck = true;
-					switch (availabilityZoneSelection) {
-					case "us-east-2a":
-						availabilityZoneSelection = "0";
-						break;
-					case "us-east-2b":
-						availabilityZoneSelection = "1";
-						break;
-					case "us-east-2c":
-						availabilityZoneSelection = "2";
-						break;
+					break;
+				case "us-east-2b":
+					availabilityZoneSelection = "1";
+					availabilityZoneCheck = true;
+					break;
+				case "us-east-2c":
+					availabilityZoneSelection = "2";
+					availabilityZoneCheck = true;
+					break;
+				default:
+					System.out.println("Not a valid AZ. Please re-enter.");
 					}
 				}
-				else {
-					System.out.println("Not a valid AZ. Please re-enter.");
-				}
-			}
 			break;
 		case "us-west-1":
 			while (availabilityZoneCheck == false) {
-				System.out.println("What is your availability zone? Please type us-west-1a or us-west-1c? (Leave blank for default us-west-1a)");
+				System.out.println("What is your availability zone? Please type us-west-1a or us-west-1c? (Leave blank for default us-west-1a)"); //us-west-1b is not available to the public
 				availabilityZoneSelection = textscan.nextLine();
 				if (availabilityZoneSelection.isEmpty()){
 				System.out.println("Default us-west-1a AZ");
 				availabilityZoneSelection = "us-west-1a";
 				}
-				if ((availabilityZoneSelection.equals("us-west-1a")) || (availabilityZoneSelection.equals("us-west-1c"))) {
-				availabilityZoneCheck = true;
-					switch (availabilityZoneSelection) {
-					case "us-west-1a":
-						availabilityZoneSelection = "0";
-						break;
-					case "us-west-1c":
-						availabilityZoneSelection = "2";
-						//Could be 1 instead of 2
-						break;
-					}
-				}
-				else {
-				System.out.println("Not a valid AZ. Please re-enter.");
+				switch (availabilityZoneSelection) {
+				case "us-west-1a":
+					availabilityZoneSelection = "0";
+					availabilityZoneCheck = true;
+					break;
+				case "us-west-1c":
+					availabilityZoneSelection = "2";
+					availabilityZoneCheck = true;
+					break;
+				default:
+					System.out.println("Not a valid AZ. Please re-enter.");
 				}
 			}
 			break;
@@ -145,27 +144,27 @@ public class CloudFormationBuilder {
 					System.out.println("Default us-west-2a AZ");
 					availabilityZoneSelection = "us-west-2a";
 					}
-					if ((availabilityZoneSelection.equals("us-west-2a")) || (availabilityZoneSelection.equals("us-west-2b")) || (availabilityZoneSelection.equals("us-west-2c")) || 
-						(availabilityZoneSelection.equals("us-west-2d"))) {
-					availabilityZoneCheck = true;
-						switch (availabilityZoneSelection) {
-						case "us-west-2a":
-							availabilityZoneSelection = "0";
-							break;
-						case "us-west-2b":
-							availabilityZoneSelection = "1";
-							break;
-						case "us-west-2c":
-							availabilityZoneSelection = "2";
-							break;
-						case "us-west-2d":
-							availabilityZoneSelection = "3";
-							break;
-						}
+					switch (availabilityZoneSelection) {
+					case "us-west-2a":
+						availabilityZoneSelection = "0";
+						availabilityZoneCheck = true;
+						break;
+					case "us-west-2b":
+						availabilityZoneSelection = "1";
+						availabilityZoneCheck = true;
+						break;
+					case "us-west-2c":
+						availabilityZoneSelection = "2";
+						availabilityZoneCheck = true;
+						break;
+					case "us-west-2d":
+						availabilityZoneSelection = "3";
+						availabilityZoneCheck = true;
+						break;
+					default:
+						System.out.println("Not a valid AZ. Please re-enter.");
 					}
-					else {
-					System.out.println("Not a valid AZ. Please re-enter.");
-					}
+
 				}
 			break;
 		}
@@ -221,7 +220,7 @@ public class CloudFormationBuilder {
 		}
 		
 		//Writes all user-input to file
-		WriteToExistingFile.compileCF(fileName, nameVPC, availabilityZoneSelection, instanceTypeEC2, nameEC2, userHomeFolder, regionSelection);
+		WriteToExistingFile writtenFile = new WriteToExistingFile(fileName, nameVPC, availabilityZoneSelection, instanceTypeEC2, nameEC2, userHomeFolder, regionSelection);
 		
 		
 		in.close();

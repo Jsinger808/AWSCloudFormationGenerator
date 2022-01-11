@@ -4,7 +4,14 @@ import java.io.*;
 
 public class CreateFile {
 	
-		public static boolean check(String fileName, String userHomeFolder) {
+		private String fileName;
+		private String userHomeFolder;
+		
+		public CreateFile(String fileName, String userHomeFolder) {
+			this.fileName = fileName;
+			this.userHomeFolder = userHomeFolder;
+		}
+		public boolean newFileCheck() {
 				try {
 			      File myObj = new File(userHomeFolder + fileName + ".yaml");
 			      if (myObj.createNewFile()) {

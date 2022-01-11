@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class WriteToExistingFile {
 
-	static int totalbytes = 0;
-	 
-	 public static void compileCF(String fileName, String nameVPC, String availabilityZoneSelection, String instanceTypeEC2, String nameEC2, String userHomeFolder, String regionSelection) {
+	private int totalbytes = 0;
+	
+	 public WriteToExistingFile(String fileName, String nameVPC, String availabilityZoneSelection, String instanceTypeEC2, String nameEC2, String userHomeFolder, String regionSelection) {
 		
 		 /*Besides the variables, this text must be in every CF Template regardless of user input.
 		 It creates the architecture necessary for an EC2 to connect to the Internet:
@@ -19,9 +19,9 @@ public class WriteToExistingFile {
 		 CFTemplateArrayList.add, and it'll be included at the bottom of your CF Template.
 		 */
 		 
-		 ArrayList<String> CFTemplateArrayList = new ArrayList<String>();
+		ArrayList<String> CFTemplateArrayList = new ArrayList<String>();
 		
-		 CFTemplateArrayList.add("Description: VPC + EC2 Instance(s)\nParameters:\n  LatestAmiId:\n    "
+		CFTemplateArrayList.add("Description: VPC + EC2 Instance(s)\nParameters:\n  LatestAmiId:\n    "
 				+ "Description: AMI for Instance (default is latest AmaLinux2)\n    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'\n    "
 				+ "Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'\nResources:\n  VPC:\n    Type: AWS::EC2::VPC\n    "
 				+ "Properties:\n      CidrBlock: 10.16.0.0/16\n      EnableDnsSupport: true\n      EnableDnsHostnames: true\n      "
@@ -84,7 +84,8 @@ public class WriteToExistingFile {
 				 ". Please upload your file on AWS as a CloudFormation stack in your selected region: " + regionSelection + ". Enjoy!");
 
 	 }
-	 public static void writeCFSection(String userHomeFolder, String fileName, String CFTemplate) {
+	 
+	 public void writeCFSection(String userHomeFolder, String fileName, String CFTemplate) {
 		 try {
 				RandomAccessFile randomAccessFile = new RandomAccessFile(userHomeFolder + fileName + ".yaml", "rw");
 				randomAccessFile.seek(totalbytes);
